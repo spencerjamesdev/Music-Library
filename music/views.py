@@ -31,11 +31,13 @@ class SongDetail(APIView):
         except Song.DoesNotExist:
             raise Http404
 
+    #get by id
     def get(self, request, pk):
         song = self.get_object(pk)
         serializer = SongSerializer(song)
         return Response(serializer.data)
 
+    #update
     def put(self, request, pk):
         song = self.get_object(pk)
         serializer = SongSerializer(song, data=request.data)
@@ -44,6 +46,7 @@ class SongDetail(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    #delete
     def delete(self, request, pk):
         song = self.get_object(pk)
         song.delete()
